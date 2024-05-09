@@ -7,10 +7,10 @@ namespace WebAPI.Services
     {
         IEnumerable<Person> GetAll();
         Person? GetById(Guid id);
-        void Add(Person person);
-        void Update(Guid id, Person person);
-        void Delete(Guid id);
-        IEnumerable<Person> Filter(string? fullName, string? gender, GenderType? birthPlace);
+        Guid Add(Person person);
+        bool Update(Guid id, Person person);
+        bool Delete(Guid id);
+        IEnumerable<Person> Filter(string? fullName, string? birthPlace, GenderType? gender);
 
     }
 }

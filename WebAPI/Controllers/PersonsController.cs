@@ -32,13 +32,27 @@ namespace WebAPI.Controllers
             }
         }
 
+        [HttpGet("Filter")]
+        public IActionResult Get(string? fullName, GenderType? gender, string? birthPlace)
+        {
+            try
+            {
+                var result = _personService.Filter(fullName, birthPlace, gender);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult Post(PersonRequestModel person)
         {
             try
             {
-                _personService.Add(_mapper.Map<Person>(person));
-                return Ok("Create successfully");
+                var id = _personService.Add(_mapper.Map<Person>(person));
+                return Ok($"Create person {id} successfully");
             }
             catch (Exception e)
             {
@@ -52,7 +66,7 @@ namespace WebAPI.Controllers
             try
             {
                 _personService.Update(id,_mapper.Map<Person>(person));
-                return Ok("Update successfully");
+                return Ok($"Update person {id} successfully");
             }
             catch (Exception e)
             {
@@ -66,21 +80,7 @@ namespace WebAPI.Controllers
             try
             {
                 _personService.Delete(id);
-                return Ok("Delete successfully");
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpGet("Filter")]
-        public IActionResult Get(string? fullName, GenderType? gender,string? birthPlace)
-        {
-            try
-            {
-                var result = _personService.Filter(fullName, birthPlace, gender);
-                return Ok(result);
+                return Ok($"Delete person {id} successfully");
             }
             catch (Exception e)
             {

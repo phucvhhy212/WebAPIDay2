@@ -16,6 +16,7 @@ namespace WebAPI.Models
         [Required]
         public GenderType Gender { get; set; }
         [Required]
+        [MaxLength(40)]
         public string BirthPlace { get; set; }
     }
 }
